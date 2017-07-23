@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="Infinity" maxWidth="Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+	prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="src.SidePanelContentController">
+	<left>
+		<VBox alignment="CENTER" prefHeight="400.0" prefWidth="150.0"
+			BorderPane.alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.65"
+			xmlns:fx="http://javafx.com/fxml/1">
+			<children>
+				<JFXButton fx:id="b_home" buttonType="RAISED" onAction="#changeColor"
+					prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000"
+					style="-fx-background-color: #f1f1f1;" text="Home" />
+				<JFXButton fx:id="b_tutorial" buttonType="RAISED" layoutX="10.0"
+					layoutY="123.0" onAction="#changeColor" prefHeight="74.0"
+					prefWidth="213.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;"
+					text="How To" />
+				<JFXButton fx:id="b_support" buttonType="RAISED" layoutX="10.0"
+					layoutY="197.0" onAction="#changeColor" prefHeight="74.0"
+					prefWidth="213.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;"
+					text="Support" />
+
+				<JFXButton fx:id="b_blank1" buttonType="RAISED"
+					prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000"
+					style="-fx-background-color: #f1f1f1;" text=" " />
+				<JFXButton fx:id="b_blank2" buttonType="RAISED"
+					prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000"
+					style="-fx-background-color: #f1f1f1;" text=" " />
+				<JFXButton fx:id="b_blank3" buttonType="RAISED"
+					prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000"
+					style="-fx-background-color: #f1f1f1;" text=" " />
+				<JFXButton fx:id="b_blank4" buttonType="RAISED"
+					prefHeight="74.0" prefWidth="213.0" ripplerFill="#fc0000"
+					style="-fx-background-color: #f1f1f1;" text=" " />
+				<JFXButton fx:id="b_about" buttonType="RAISED" prefHeight="74.0"
+					prefWidth="213.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;"
+					text="About" />
+				<JFXButton fx:id="b_exit" buttonType="RAISED" layoutX="10.0"
+					layoutY="271.0" onAction="#exit" prefHeight="74.0" prefWidth="213.0"
+					ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Exit" />
+				<ImageView fitHeight="127.0" fitWidth="200.0"
+					pickOnBounds="true" preserveRatio="true">
+					<image>
+						<Image url="back.jpg" />
+					</image>
+				</ImageView>
+			</children>
+		</VBox>
+	</left>
+	<center>
+		<SplitPane dividerPositions="0.11371237458193979"
+			orientation="VERTICAL" prefHeight="600.0" prefWidth="651.0"
+			BorderPane.alignment="CENTER">
+			<items>
+				<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0"
+					prefWidth="160.0">
+					<children>
+						<ImageView fitHeight="100" fitWidth="600" layoutX="254.0"
+							pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="DNA_simple.gif" />
+							</image>
+						</ImageView>
+					</children>
+				</AnchorPane>
+				<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0"
+					prefWidth="160.0" />
+			</items>
+		</SplitPane>
+	</center>
+</BorderPane>
