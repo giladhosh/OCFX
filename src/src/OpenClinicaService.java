@@ -18,6 +18,9 @@ package src;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import javax.inject.Named;
+
+
 /* 
 import org.openclinica.ws.data.v1.ImportResponse;
 import org.openclinica.ws.event.v1.ScheduleResponse;
@@ -94,7 +97,12 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.lang.reflect.Type;
+import java.net.MalformedURLException;
+import java.net.URL;
 /**
  * OpenClinica service implements client calls to SOAP and REST based web-service endpoints provided by the EDC system
  *
@@ -105,6 +113,7 @@ import java.lang.reflect.Type;
  * @since 05 June 2013
  */
 
+//@Named("OCService")
 public class OpenClinicaService {
 
 	//region Enums
@@ -309,7 +318,7 @@ public class OpenClinicaService {
 		//TODO: this is stupid check to fix the production, try to find better solution
 		// If the editable is actually new Enketo form (data entry was started in EDC)
 		if (ocUrl.indexOf(":9005/::") == -1) {
-			
+
 			Client client = Client.create();
 			WebResource webResource = client.resource(ocUrl);
 			ClientResponse response = webResource.get(ClientResponse.class);
@@ -566,7 +575,11 @@ public class OpenClinicaService {
 			}
 		}
 	}
-
+/**
+ *  Helper Method: Returns the list of ItemData elements from jsonItemGroupData
+ * @param jsonItemGroupData
+ * @return
+ */
 	private List<ItemDatum> getItemDataList_from_jsonItemGroupData(JSONObject jsonItemGroupData) 
 	{
 		List<ItemDatum> itemDataList = new ArrayList<ItemDatum>();
@@ -589,8 +602,8 @@ public class OpenClinicaService {
 		return itemDataList;
 	}
 
-	/*
-	 * Returns the list of ItemGroupData from FormData or null if 
+	/**
+	 * Helper Method: Returns the list of ItemGroupData from FormData or null if 
 	 */
 	private List<ItemGroupDatum> getItemGroupDatumList_from_JSONObjFormData(JSONObject jsonFormData)
 	{
@@ -630,18 +643,41 @@ public class OpenClinicaService {
 	 * Function that searches for a mutation in all subjects
 	 * StudySubjectsData = all data for a subject
 	 */
-	public List<String> searchMutation(String mutation)
+	public ObservableList<SearchResult> searchAll(String searchStr)
+	{
+		//TODO: Cleanup
+		//List<DataTableRow> results = new ArrayList<DataTableRow>();
+		DataSingleton dataSingleton = DataSingleton.getInstance();
+		Collection<StudySubjectsData> allSubjects = dataSingleton.getAll();
+	
+		List<SearchResult> results_study_events = new ArrayList<SearchResult>();
+		
+		allSubjects.forEach(subject -> { //search all subjects
+			List<SearchResult> acc ;
+			if((acc = subject.searchField(searchStr)) != null ) { //if found anything
+				results_study_events.addAll(acc); //append results
+				/*results_study_events.forEach(res -> {  //each result will be a match in a specific subject event
+					DataTableRow row = new DataTableRow(res.getSubcjectOID() , res.getEventName() , res.getLink());
+					results.add(row); //add key to results
+				});*/
+			}
+		});
+		ObservableList<SearchResult> ans =  FXCollections.observableArrayList(results_study_events);
+		//ObservableList<DataTableRow> ans =  FXCollections.observableArrayList(results);
+		return ans;
+	}
+
+	public List<String> searchAllRaw(String searchStr)
 	{
 		List<String> results = new ArrayList<String>();
 		DataSingleton dataSingleton = DataSingleton.getInstance();
-
 		Collection<StudySubjectsData> allSubjects = dataSingleton.getAll();
 
 		allSubjects.forEach(subject -> {
-			if(subject.searchField("FGFR2"))
+			if(subject.searchField(searchStr) != null)
 				results.add(subject.getSubjectData().getSubjectKey()); //add key to results
 		});
-
+		
 		return results;
 	}
 
@@ -690,12 +726,31 @@ public class OpenClinicaService {
 		return subjectOIDs;
 	}
 
+
 }
 
 
 
 //-------------------------------------------------------------------Junk Yard----------------------------------------------------------------------------------------
 
+/*
+public ObservableList<DataTableRow> searchAll(String searchStr)
+{
+	List<Data_Table_Row> results = new ArrayList();
+
+	DataSingleton dataSingleton = DataSingleton.getInstance();
+
+	Collection<StudySubjectsData> allSubjects = dataSingleton.getAll();
+
+	allSubjects.forEach(subject -> {
+		if(subject.searchField(searchStr))
+			results.add(subject.getSubjectData().getSubjectKey()); //add key to results
+	});
+
+	ObservableList<DataTableRow> ans =  FXCollections.observableArrayList(results);
+	return ans;
+}
+ */
 //private JSONArray getAllEvents(JSONObject studySubjectData)
 //{
 //	JSONArray subjectStudyEventData = studySubjectData.optJSONArray("StudyEventData"); //OID is unique
