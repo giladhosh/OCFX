@@ -194,7 +194,9 @@ public class OpenClinicaService {
 	//region Properties
 	/*
     public Boolean isConnected() {
-        return this.ocws != null;
+        return this.
+
+ != null;
     }
 	 */
 

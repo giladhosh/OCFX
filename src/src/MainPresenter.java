@@ -11,9 +11,11 @@ import com.jfoenix.controls.JFXButton;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -74,7 +76,7 @@ public class MainPresenter implements Initializable {
     private void changeColor(ActionEvent event) {
         JFXButton btn = (JFXButton) event.getSource();
         System.out.println(btn.getText());
-        switch(btn.getText()) //change to any or use id?
+        switch(btn.getText())  //change to any or use id?
         {
             case "Color 1":MainPresenter.rootP.setStyle("-fx-background-color:#00FF00");
                 break;
@@ -87,9 +89,19 @@ public class MainPresenter implements Initializable {
 
     @FXML
     private void updateDataClick(ActionEvent event) {
-				//Runner run = new Runner();
+    	Task<Void> task = new Task<Void>(){
+			@Override
+			protected Void call() throws Exception {
 				service.connect("Gilad", "gilad123", "http://openc1.bgu.ac.il:8080/OpenClinica/rest/", "http://openc1.bgu.ac.il:8080/OpenClinica/");
 				service.updateAllData("S_ZFAT3");
+				return null;
+			}
+    	};
+    	ProgressBar bar = new ProgressBar();
+    	bar.progressProperty().bind(task.progressProperty());
+        Thread th = new Thread(task);
+        th.setDaemon(true); //background thread simply terminates after all the stages are closed
+        th.start();
     }
     
 

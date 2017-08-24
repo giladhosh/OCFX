@@ -49,7 +49,8 @@ import javafx.scene.control.TableView;
 
 /*
  * TODO:
- * GUI:
+ */
+ /* GUI:
  * 1. (2nd) Add Preloader while all data gets retreived (after adding threads).									
  * V	2. 	2.1 Add Pane for data.																					
  * V   		2.2 Add parse results																				
@@ -57,20 +58,20 @@ import javafx.scene.control.TableView;
  * V	  	3.2 Add button that runs search method.																
  * V   		3.3 add search funtion
  * V	4. display results.
- * 
- * Data:
+ */ 
+ /* Data:
  * V	1. (2nd) move search inside - create a searchAll.
- * 2. (2nd)add link to each result || add link field to all when retrieved (data).
- * 
- * THREADS: (inside service?)
+ * 2. (1st)add link to each result || add link field to all when retrieved (data).
+ */ 
+ /* THREADS: (inside service?)
  * 1. (1st) Add Thread to get all strings.
- * 2. (1st) Add Thread for data retrieval (Thread has to wait until 'get strings' thread is finished).
- * 3. (1st) Add Thread to run GUI.
- * 
- * GENERAL:
+ * V	2. (1st) Add Thread for data retrieval (Thread has to wait until 'get strings' thread is finished).
+ * V	3. (1st) Add Thread to run GUI.
+ */ 
+ /* GENERAL:
  * 1. (3rd) Check usage of constants and update class to use current values.
  * 2. (3rd) check need - split data from GUI.
- * 3. V (3rd) keep runner? - yes! for debugging.
+ * V	3. (3rd) keep runner? - yes! for debugging.
  * 4. (3rd) StudySubject class not used? 
  * 5. OpenClinica service cleanup:
  *    (3rd) 5.1 Method loginUserAccount(String username, String password) not used?
