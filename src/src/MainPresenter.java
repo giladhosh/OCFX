@@ -92,8 +92,13 @@ public class MainPresenter implements Initializable {
     	Task<Void> task = new Task<Void>(){
 			@Override
 			protected Void call() throws Exception {
-				service.connect("Gilad", "gilad123", "http://openc1.bgu.ac.il:8080/OpenClinica/rest/", "http://openc1.bgu.ac.il:8080/OpenClinica/");
-				service.updateAllData("S_ZFAT3");
+				String user = "";
+				String pass = "";
+				String study = "";
+				URL ocRestURL = new URL("");
+				URL ocURL = new URL("");
+				service.connect(user, pass, ocRestURL.toString(), ocURL.toString());
+				service.updateAllData(study);
 				return null;
 			}
     	};
@@ -104,11 +109,9 @@ public class MainPresenter implements Initializable {
         th.start();
     }
     
-
     /*
      * Search region
      */
-
     @FXML  
     private void searchAll(ActionEvent event) {
     	String searchStr = txt_search_all.getText();
@@ -140,6 +143,3 @@ public class MainPresenter implements Initializable {
 
 }
 
-/*
- * results.layoutXProperty().bind(pane.widthProperty().subtract(results.widthProperty()).divide(2));
- */
